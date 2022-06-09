@@ -1,0 +1,26 @@
+version: '2.5'
+
+services:
+  couchserver:
+    image: couchdb:2.3
+    volumes:
+      - ./dbdata:/opt/couchdb/data
+    network_mode: 'host'
+    environment:
+      COUCHDB_USER: software-libre
+      COUCHDB_PASSWORD: software-libre
+    #ports:
+    #  - "5984:5984"
+    restart: always
+    
+  cliente-web:
+    image: img-cliente-web
+    container_name: container-cliente-web
+    network_mode: 'host'
+    depends_on:
+      - couchserver
+    #ports:
+    #  - "3000:3000"
+    links:
+      - couchserver
+
