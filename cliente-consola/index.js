@@ -27,17 +27,19 @@ async function menu() {
 
     console.log(`>>Logueado como: ${user}`);
 
+    await sleep(1000)
+
     var res = prompt('Que desea hacer? [1. Postear, 2. Ver Posteos, 0. Salir]: ')
 
     while (res != 0){
-        await sleep(100);
+        await sleep(200);
         switch (res) {
             case '1':
                 console.log('Crear Post >> (Escribir EXIT para salir)');
                 var mensaje = prompt('Mensaje: ')
                 await local_db.post({'user':`${user}`,'data':`${mensaje}`,'timestamp':`${Date.now()}`})
                     .catch('Hubo un error, no se pudo crear el mensaje!')
-                    await sleep(100);
+                    await sleep(200);
                     console.log('Mensaje creado con exito: ', mensaje)
                     break;
             case '2':
@@ -63,7 +65,7 @@ async function timer() {
     var i=0;
     var user = "auto";
     var mensaje;
-    while (i<10) {
+    while (i<3) {
         mensaje = Math.floor(Math.random()*10000000)
         await local_db.post({'user':`${user}`,'data':`${mensaje}`,'timestamp':`${Date.now()}`})
                         .catch('Hubo un error, no se pudo crear el mensaje!')
