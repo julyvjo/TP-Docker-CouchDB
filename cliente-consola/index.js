@@ -62,8 +62,9 @@ async function menu() {
 async function timer() {
     var i=0;
     var user = "auto";
-    var mensaje = Math.floor(Math.random()*100000)
+    var mensaje;
     while (i<10) {
+        mensaje = Math.floor(Math.random()*10000000)
         await local_db.post({'user':`${user}`,'data':`${mensaje}`,'timestamp':`${Date.now()}`})
                         .catch('Hubo un error, no se pudo crear el mensaje!')
         await sleep(12000);
@@ -80,7 +81,8 @@ function sleep(ms) {
 
 async function sincro(){
     local_db.sync(remote_db, {
-        live: true
+        live: true,
+        retry: true
       }).on('change', function (change) {
         //se detectan cambios en la BD
         console.log('>> Actualizando BD');

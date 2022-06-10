@@ -23,4 +23,37 @@ services:
     #  - "3000:3000"
     links:
       - couchserver
+  
+  cliente-1:
+    image: img-cliente-consola
+    container_name: container-cliente-consola-1
+    entrypoint: /bin/sh
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    environment:
+      DB_HOST: 127.0.0.1:5984
+      DB_NAME: software-libre-database
+      MODE: manual
+      DB_USER: ''
+      DB_PASS: ''
+    network_mode: 'host'
+    depends_on:
+      - couchserver
+    links:
+      - couchserver
+      
+  cliente-2:
+    image: img-cliente-consola
+    container_name: container-cliente-consola-2
+    environment:
+      DB_HOST: 127.0.0.1:5984
+      DB_NAME: software-libre-database
+      MODE: auto
+      DB_USER: ''
+      DB_PASS: ''
+    network_mode: 'host'
+    depends_on:
+      - couchserver
+    links:
+      - couchserver
 
